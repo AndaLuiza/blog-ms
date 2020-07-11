@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -39,7 +40,7 @@ public class PostServiceImpl implements PostService {
             foundPost.setAuthor(postDto.getAuthor());
             foundPost.setTitle(postDto.getTitle());
             foundPost.setContent(postDto.getContent());
-            foundPost.setPostedDate(postDto.getPostedDate());
+            foundPost.setPostedDate(new Date());
             return new PostDto(postRepo.save(foundPost));
         }
         else

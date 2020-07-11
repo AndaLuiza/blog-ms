@@ -26,7 +26,7 @@ public class BlogRestController {
         return postServiceImpl.findAllPosts();
     }
 
-    @GetMapping("{author}")
+    @GetMapping("author/{author}")
     public List<PostDto> getPostsByAuthor(@PathVariable String author) {
         return postServiceImpl.findAllPostsByAuthor(author);
     }

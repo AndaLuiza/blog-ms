@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.Date;
 import java.util.Optional;
 
 @Service
@@ -36,7 +37,7 @@ public class PostCommentServiceImpl implements PostCommentService {
             postComment.setPost(post.get());
             postComment.setReader(postCommentDto.getReader());
             postComment.setCommentText(postCommentDto.getCommentText());
-            postComment.setCommentDate(postCommentDto.getCommentDate());
+            postComment.setCommentDate(new Date());
 
             return new PostCommentDto(postCommentRepo.save(postComment));
         }
