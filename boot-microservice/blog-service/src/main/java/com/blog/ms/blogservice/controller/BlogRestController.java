@@ -5,6 +5,8 @@ import com.blog.ms.blogservice.dto.PostDto;
 import com.blog.ms.blogservice.exception.ResourceNotFoundException;
 import com.blog.ms.blogservice.service.PostCommentService;
 import com.blog.ms.blogservice.service.PostService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -14,6 +16,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("posts")
+@Api(value="blogPosts", produces = "application/json", description = "Crud operations on a Blog")
 public class BlogRestController {
     @Autowired
     PostService postServiceImpl;
@@ -22,6 +25,7 @@ public class BlogRestController {
     PostCommentService postCommentServiceImpl;
 
     @GetMapping
+    @ApiOperation(value = "View list of all posts", response = PostDto.class, responseContainer = "List")
     public List<PostDto> getAllPosts() {
         return postServiceImpl.findAllPosts();
     }
