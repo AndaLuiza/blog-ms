@@ -19,9 +19,7 @@ public class PostCommentRest {
 
     @PostMapping("comment")
     public String postComment(@RequestParam Long postId, @RequestParam String reader, @RequestParam String commentText) {
-        CommentDto commentDto = new CommentDto();
-        commentDto.setReader(reader);
-        commentDto.setCommentText(commentText);
+        CommentDto commentDto = new CommentDto(reader, commentText);
         String externalPostBaseUrl = blogClientProperties.getPostBaseUrl();
         String postCommentPath = blogClientProperties.getPostBaseUrl();
         rest.postForObject(externalPostBaseUrl + postId + postCommentPath, commentDto, Void.class);
