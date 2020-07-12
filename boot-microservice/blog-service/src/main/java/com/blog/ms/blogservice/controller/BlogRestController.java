@@ -46,10 +46,10 @@ public class BlogRestController {
         return postServiceImpl.addPost(postDto);
     }
 
-    @PutMapping
-    public PostDto editPost(@RequestBody PostDto postDto) {
+    @PutMapping("{id}")
+    public PostDto editPost(@PathVariable Long id, @RequestBody PostDto postDto) {
         try {
-            return postServiceImpl.editPost(postDto);
+            return postServiceImpl.editPost(id, postDto);
         } catch (ResourceNotFoundException ex) {
             throw new ResponseStatusException(
                     HttpStatus.NOT_FOUND, "Post Not Found", ex);
@@ -68,9 +68,8 @@ public class BlogRestController {
 
     @PostMapping("{postId}/comments")
     public void addComment(@PathVariable (value = "postId") Long postId, @RequestBody PostCommentDto postCommentDto) {
-        postCommentDto.setPostId(postId);
         try {
-            postCommentServiceImpl.addComment(postCommentDto);
+            postCommentServiceImpl.addComment(postId, postCommentDto);
         } catch (ResourceNotFoundException ex) {
             throw new ResponseStatusException(
                     HttpStatus.NOT_FOUND, "Post Not Found", ex);

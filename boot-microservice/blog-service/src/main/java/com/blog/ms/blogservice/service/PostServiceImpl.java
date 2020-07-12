@@ -33,8 +33,8 @@ public class PostServiceImpl implements PostService {
 
     @Override
     @Transactional
-    public PostDto editPost(PostDto postDto) throws ResourceNotFoundException {
-        Optional<Post> post = postRepo.findById(postDto.getId());
+    public PostDto editPost(Long id, PostDto postDto) throws ResourceNotFoundException {
+        Optional<Post> post = postRepo.findById(id);
         if(post.isPresent()) {
             Post foundPost = post.get();
             foundPost.setAuthor(postDto.getAuthor());
@@ -52,14 +52,14 @@ public class PostServiceImpl implements PostService {
 
     @Override
     @Transactional
-    public void deletePost(Long postId) throws ResourceNotFoundException {
-        Optional<Post> post = postRepo.findById(postId);
+    public void deletePost(Long id) throws ResourceNotFoundException {
+        Optional<Post> post = postRepo.findById(id);
         if(post.isPresent()) {
             postRepo.delete(post.get());
         }
         else {
-            logger.error("Tried to delete post, but no post found with id {} ", postId);
-            throw new ResourceNotFoundException("No post found with id " + postId);
+            logger.error("Tried to delete post, but no post found with id {} ", id);
+            throw new ResourceNotFoundException("No post found with id " + id);
         }
     }
 
@@ -78,6 +78,7 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<PostDto> findAllPosts() {
         List<PostDto> postDtoList = new ArrayList<>();
         postRepo.findAll().forEach(post -> postDtoList.add(new PostDto(post)));
@@ -86,8 +87,9 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<PostDto> findAllPostsByAuthor(String author) {
-        List<Post> posts = postRepo.findByAuthor(author);
+        List<Post> posts = postRepo.findByAuthorIgnoreCase(author);
         List<PostDto> postDtoList = new ArrayList<>();
         posts.forEach(post -> postDtoList.add(new PostDto(post)));
 

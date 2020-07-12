@@ -4,5 +4,5 @@ import com.blog.ms.blogservice.dto.PostCommentDto;
 import com.blog.ms.blogservice.exception.ResourceNotFoundException;
 
 public interface PostCommentService {
-    PostCommentDto addComment(PostCommentDto postCommentDto) throws ResourceNotFoundException;
+    PostCommentDto addComment(Long postId, PostCommentDto postCommentDto) throws ResourceNotFoundException;
 }

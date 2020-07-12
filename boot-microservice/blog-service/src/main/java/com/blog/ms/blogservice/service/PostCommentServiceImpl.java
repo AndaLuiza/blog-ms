@@ -28,8 +28,8 @@ public class PostCommentServiceImpl implements PostCommentService {
 
     @Override
     @Transactional
-    public PostCommentDto addComment(PostCommentDto postCommentDto) throws ResourceNotFoundException {
-        Optional<Post> post = postRepo.findById(postCommentDto.getPostId());
+    public PostCommentDto addComment(Long postId, PostCommentDto postCommentDto) throws ResourceNotFoundException {
+        Optional<Post> post = postRepo.findById(postId);
 
         if(post.isPresent()) {
 

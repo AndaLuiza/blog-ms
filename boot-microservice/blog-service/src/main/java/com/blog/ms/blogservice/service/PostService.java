@@ -7,9 +7,9 @@ import java.util.List;
 
 public interface PostService {
     PostDto addPost(PostDto postDto);
-    PostDto editPost(PostDto postDto) throws ResourceNotFoundException;
-    void deletePost(Long postId) throws ResourceNotFoundException;
-    PostDto findPostById(Long postId) throws ResourceNotFoundException;
+    PostDto editPost(Long id, PostDto postDto) throws ResourceNotFoundException;
+    void deletePost(Long id) throws ResourceNotFoundException;
+    PostDto findPostById(Long id) throws ResourceNotFoundException;
     List<PostDto> findAllPosts();
     List<PostDto> findAllPostsByAuthor(String author);
 }

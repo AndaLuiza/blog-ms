@@ -6,7 +6,9 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 
 @Getter
@@ -31,6 +33,9 @@ public class Post {
     @Column(name="posted_date")
     @Temporal(TemporalType.TIMESTAMP)
     private Date postedDate;
+
+    @OneToMany(mappedBy = "post")
+    List<PostComment> comments = new ArrayList<PostComment>();
 
     public Post(String title, String author, String content, Date postedDate) {
         this.title = title;
