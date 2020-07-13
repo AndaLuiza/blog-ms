@@ -21,8 +21,10 @@ public class PostCommentRest {
     public String postComment(@RequestParam Long postId, @RequestParam String reader, @RequestParam String commentText) {
         CommentDto commentDto = new CommentDto(reader, commentText);
         String externalPostBaseUrl = blogClientProperties.getPostBaseUrl();
-        String postCommentPath = blogClientProperties.getPostBaseUrl();
-        rest.postForObject(externalPostBaseUrl + postId + postCommentPath, commentDto, Void.class);
+        String postCommentPath = blogClientProperties.getPostCommentPath();
+        String url = externalPostBaseUrl + postId + postCommentPath;
+
+        rest.postForObject(url, commentDto, Void.class);
         return "Comment added";
     }
 
